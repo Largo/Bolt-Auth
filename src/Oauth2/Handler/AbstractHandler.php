@@ -23,6 +23,7 @@ use Silex\Application;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Bolt\Translation\Translator as Trans;
 
 /**
  * Authorisation control class.
@@ -121,7 +122,7 @@ abstract class AbstractHandler
     {
         if ($this->session->hasAuthorisation()) {
             $this->session->removeAuthorisation();
-            $this->feedback->info('Logout was successful.');
+            $this->feedback->info(Trans::__('Logout was successful.'));
             $this->setDebugMessage(sprintf('Logout was route complete for %s', $request->getRequestUri()));
         } else {
             $this->setDebugMessage('Logout was no required. Auth session not found.');

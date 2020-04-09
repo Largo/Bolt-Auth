@@ -102,7 +102,7 @@ class Local extends AbstractHandler
         }
 
         $this->finish($request);
-        $this->feedback->info('Login successful.');
+        $this->feedback->info(Trans::__('Login successful.'));
 
         return $this->session->popRedirect()->getResponse();
     }

@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Bolt\Translation\Translator as Trans;
 
 /**
  * Auth controller.
@@ -144,6 +145,7 @@ class Auth extends AbstractController
             $entity = $resolvedBuild->getEntity(Form\AuthForms::PROFILE_EDIT);
             $form = $resolvedBuild->getForm(Form\AuthForms::PROFILE_EDIT);
             $this->getAuthRecordsProfile()->saveProfileForm($entity, $form);
+            $this->getAuthFeedback()->info(Trans::__('Changed Profile Information successfully.'));
         }
 
         $template = $this->getAuthConfig()->getTemplate('profile', 'edit');
