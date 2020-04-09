@@ -37,11 +37,11 @@
 
                 {{ form_label(form_profile_edit.password.first, null, {'label_attr': {'class': 'main col-xs-12'}}) }}
                 {{ form_errors(form_profile_edit.password.first) }}
-                {{ form_widget(form_profile_edit.password.first, { 'attr': {'class': 'form-control large', 'autocomplete': 'new-password', 'minlength': 6} }) }}
+                {{ form_widget(form_profile_edit.password.first, { 'attr': {'class': 'form-control large', 'autocomplete': 'new-password', 'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' } }) }}
 
                 {{ form_label(form_profile_edit.password.second, null, {'label_attr': {'class': 'main col-xs-12'}}) }}
                 {{ form_errors(form_profile_edit.password.second) }}
-                {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large', 'autocomplete': 'new-password', 'minlength': 6} }) }}
+                {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large', 'autocomplete': 'new-password', 'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' } }) }}
 
                 {% include '@AuthAdmin/profile_edit_meta.twig' ignore missing %}
 
