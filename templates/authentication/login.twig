@@ -31,7 +31,7 @@
         {{ form_start(form_login_password) }}
 
         {{ form_row(form_login_password.email) }}
-        {{ form_row(form_login_password.password, {'attr': {'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }} ) }}
+        {{ form_row(form_login_password.password, {'attr': {'minlength': '6' }} ) }}
         <br>
         {{ form_row(form_login_password.submit, {'attr': {'class': 'button btn btn-default'}}) }}
 

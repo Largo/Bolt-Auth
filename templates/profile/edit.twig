@@ -28,10 +28,12 @@
                 {% for name, row in form_profile_edit if name not in ['submit', 'password'] %}
                     <div class="auth_{{ row.vars.name }}">{{ form_row(row) }}</div>
                 {% endfor %}
-                {{ form_row(form_profile_edit.password, {'attr': {'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'}}) }}
+                {{ form_row(form_profile_edit.password.first, {'attr': {
+                    minlength:'6'
+                    }}) }}
+                    {{ form_row(form_profile_edit.password.second, {'attr': {'minlength': '6' }}) }}
                 {{ form_row(form_profile_edit.submit, {'attr': {'class': 'button btn btn-default'}}) }}
             {{ form_end(form_profile_edit) }}
-
         </div>
 
         {# <div class="small-12 columns">

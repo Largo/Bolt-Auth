@@ -85,3 +85,4 @@
 "Login successful." : "Login war erfolgreich."
 "Changed Profile Information successfully." : "Profildaten erfolgreich geändert."
 "This value is not valid." : "Dieser Wert ist nicht gültig."
+"Password has to be at least 6 characters long, include lower and uppercase letters and digits." : "Passwort muss mindestens 6 Zeichen lang sein, Klein- und Grossbuchstaben und Nummern beinhalten"

@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Bolt\Translation\Translator as Trans;
 
 /**
  * OAuth local login provider.

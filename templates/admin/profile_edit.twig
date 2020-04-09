@@ -41,12 +41,15 @@
                 <div class="form-group">
                     {{ form_label(form_profile_edit.password.first, null, {'label_attr': {'class': 'main col-sm-2 control-label'}}) }}
                     {{ form_errors(form_profile_edit.password.first) }}
-                    {{ form_widget(form_profile_edit.password.first, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 'autocomplete': 'new-password', 'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }, 'required': false }) }}
+                    {{ form_widget(form_profile_edit.password.first, { 
+                        'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 
+                        minlength:"6"
+                         }, 'required': false }) }}
                 </div>
                 <div class="form-group">
                     {{ form_label(form_profile_edit.password.second, null, {'label_attr': {'class': 'main col-sm-2 control-label'}}) }}
                     {{ form_errors(form_profile_edit.password.second) }}
-                    {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 'autocomplete': 'new-password', 'minlength': 6, 'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }, 'required': false }) }}
+                    {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4' }, 'required': false }) }}
                 </div>
 
                 {% include '@AuthAdmin/profile_edit_meta.twig' ignore missing %}
