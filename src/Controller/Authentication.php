@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Bolt\Translation\Translator as Trans;
 
 /**
  * Authentication controller.
@@ -210,7 +211,7 @@ class Authentication extends AbstractController
                 return $response;
             }
 
-            $this->getAuthFeedback()->info('Login details are incorrect.');
+            $this->getAuthFeedback()->info(Trans::__('Login details are incorrect.'));
         }
         $template = $config->getTemplate('authentication', 'login');
         $html = $this->getAuthFormsManager()->renderForms($builder, $app['twig'], $template);
