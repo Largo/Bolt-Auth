@@ -34,7 +34,7 @@
 
         </div>
 
-        <div class="small-12 columns">
+        {# <div class="small-12 columns">
             <h5>{{ __('Registered Social Media Accounts') }}</h5>
 
             <ul>
@@ -42,8 +42,7 @@
                     <li><i class="fa fa-{{ provider }}">  {{ provider|title }}</i></li>
                 {% endfor -%}
             </ul>
-        </div>
-
+        </div> 
         <div class="small-12 columns">
             {% for provider in providers|keys %}
                 {% if provider != 'local' and provider not in auth_providers() %}
@@ -56,6 +55,9 @@
 
             {{ form_end(form_associate) }}
         </div>
+
+        #}
+
 
     </div>
 {% endblock %}
