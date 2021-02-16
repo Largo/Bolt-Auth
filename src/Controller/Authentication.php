@@ -113,7 +113,7 @@ class Authentication extends AbstractController
         if ($cookie === null) {
             $response->headers->clearCookie(Session::COOKIE_AUTHORISATION);
         } else {
-            $response->headers->setCookie(new Cookie(Session::COOKIE_AUTHORISATION, $cookie, Carbon::now()->addDays(7)));
+            $response->headers->setCookie(new Cookie(Session::COOKIE_AUTHORISATION, $cookie, Carbon::now()->addHours(10)));
         }
 
         $request->attributes->set('auth-cookies', 'set');
