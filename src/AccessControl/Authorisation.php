@@ -201,10 +201,12 @@ class Authorisation implements \JsonSerializable
         if (is_numeric($data->expiry)) {
             $auth->expiry = Carbon::createFromTimestamp($data->expiry);
         } else {
-            $auth->expiry = new Carbon(
-                $data->expiry->date,
-                $data->expiry->timezone
-            );
+            if (!empty($data->expiry)) {
+                $auth->expiry = new Carbon(
+                    $data->expiry->date,
+                    $data->expiry->timezone
+                );
+            }
         }
 
         foreach ((array) $data->accessTokens as $provider => $tokenData) {
