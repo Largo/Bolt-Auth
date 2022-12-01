@@ -16,11 +16,9 @@ use Bolt\Translation\Translator as Trans;
  * OAuth local login provider.
  *
  * Copyright (C) 2014-2016 Gawain Lynch
- * Copyright (C) 2017 Svante Richter
  *
  * @author    Gawain Lynch <gawain.lynch@gmail.com>
  * @copyright Copyright (c) 2014-2016, Gawain Lynch
- *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
 class Local extends AbstractHandler
@@ -50,13 +48,13 @@ class Local extends AbstractHandler
 
         $oauth = $this->records->getOauthByGuid($account->getGuid());
         if (!$oauth instanceof Entity\Oauth) {
-            $this->feedback->info('Registration is required.');
+            $this->feedback->error('Registration is required.');
 
             return new RedirectResponse($this->urlGenerator->generate('authProfileRegister'));
         }
 
         if (!$oauth->getEnabled()) {
-            $this->feedback->info('Account disabled.');
+            $this->feedback->error('Account disabled.');
 
             return new RedirectResponse($this->urlGenerator->generate('authenticationLogin'));
         }

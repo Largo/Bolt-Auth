@@ -26,17 +26,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Bolt\Translation\Translator as Trans;
 
 /**
  * Authentication controller.
  *
  * Copyright (C) 2014-2016 Gawain Lynch
- * Copyright (C) 2017 Svante Richter
  *
  * @author    Gawain Lynch <gawain.lynch@gmail.com>
  * @copyright Copyright (c) 2014-2016, Gawain Lynch
- *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
 class Authentication extends AbstractController
@@ -113,7 +110,7 @@ class Authentication extends AbstractController
         if ($cookie === null) {
             $response->headers->clearCookie(Session::COOKIE_AUTHORISATION);
         } else {
-            $response->headers->setCookie(new Cookie(Session::COOKIE_AUTHORISATION, $cookie, Carbon::now()->addHours(10)));
+            $response->headers->setCookie(new Cookie(Session::COOKIE_AUTHORISATION, $cookie, Carbon::now()->addDays(7)));
         }
 
         $request->attributes->set('auth-cookies', 'set');
@@ -211,7 +208,7 @@ class Authentication extends AbstractController
                 return $response;
             }
 
-            $this->getAuthFeedback()->info(Trans::__('Login details are incorrect.'));
+            $this->getAuthFeedback()->error('Login details are incorrect.');
         }
         $template = $config->getTemplate('authentication', 'login');
         $html = $this->getAuthFormsManager()->renderForms($builder, $app['twig'], $template);
@@ -315,6 +312,11 @@ class Authentication extends AbstractController
             $builder = $this->resetPasswordSubmit($app, $request, $context);
         } else {
             $builder = $this->resetPasswordRequest($app, $request, $context, $response);
+        }
+
+        // if stage is complete and redirect:reset is set in extension configuration redirect there
+        if ($context->get('stage') == 'submitted' && $this->getAuthConfig()->getRedirectReset() != null) {
+            return new RedirectResponse($this->getAuthConfig()->getRedirectReset());
         }
 
         $template = $this->getAuthConfig()->getTemplate('authentication', 'recovery');

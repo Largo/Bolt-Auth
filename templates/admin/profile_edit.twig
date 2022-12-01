@@ -9,7 +9,7 @@
 {% endblock page_title %}
 
 {% block page_subtitle %}
-    Editing Auth Profile: {{ form_profile_edit.vars.value.displayname|default('New User') }}
+    {{ __('Editing Auth Profile') }}: {{ form_profile_edit.vars.value.displayname|default(__('New User')) }}
 {% endblock page_subtitle %}
 
 {# clear default messages, because we use them in a different spot, in this template #}
@@ -35,21 +35,18 @@
                 </div>
                 <div class="form-group">
                     {{ form_label(form_profile_edit.email, null, {'label_attr': {'class': 'main col-sm-2 control-label'}}) }}
-                    {{ form_errors(form_profile_edit.displayname) }}
+                    {{ form_errors(form_profile_edit.email) }}
                     {{ form_widget(form_profile_edit.email, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4'} }) }}
                 </div>
                 <div class="form-group">
                     {{ form_label(form_profile_edit.password.first, null, {'label_attr': {'class': 'main col-sm-2 control-label'}}) }}
                     {{ form_errors(form_profile_edit.password.first) }}
-                    {{ form_widget(form_profile_edit.password.first, { 
-                        'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 
-                        minlength:"6"
-                         }, 'required': false }) }}
+                    {{ form_widget(form_profile_edit.password.first, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 'autocomplete': 'new-password'}, 'required': false }) }}
                 </div>
                 <div class="form-group">
                     {{ form_label(form_profile_edit.password.second, null, {'label_attr': {'class': 'main col-sm-2 control-label'}}) }}
                     {{ form_errors(form_profile_edit.password.second) }}
-                    {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4' }, 'required': false }) }}
+                    {{ form_widget(form_profile_edit.password.second, { 'attr': {'class': 'form-control large col-sm-10 col-md-6 col-lg-4', 'autocomplete': 'new-password'}, 'required': false }) }}
                 </div>
 
                 {% include '@AuthAdmin/profile_edit_meta.twig' ignore missing %}
@@ -65,7 +62,7 @@
         <aside class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-cog fa-fw"></i> Actions
+                    <i class="fa fa-cog fa-fw"></i> {{ __('Actions') }}
                 </div>
 
                 <div class="panel-body">
@@ -74,7 +71,7 @@
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-cog fa-fw"></i>Linked Social Media Accounts</div>
+                <div class="panel-heading"><i class="fa fa-cog fa-fw"></i> {{ __('Linked Social Media Accounts') }}</div>
 
                 <div class="panel-body">
                     {% for provider in auth_providers(guid) %}

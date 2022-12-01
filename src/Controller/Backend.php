@@ -27,11 +27,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Backend controller.
  *
  * Copyright (C) 2014-2016 Gawain Lynch
- * Copyright (C) 2017 Svante Richter
  *
  * @author    Gawain Lynch <gawain.lynch@gmail.com>
  * @copyright Copyright (c) 2014-2016, Gawain Lynch
- *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
 class Backend extends AbstractController
@@ -281,6 +279,9 @@ class Backend extends AbstractController
             $provider->setResourceOwnerId($account->getGuid());
             $provider->setLastupdate(Carbon::now());
             $app['auth.records']->saveProvider($provider);
+
+            // Trigger EDIT FORM in case of custom fields (AuthFields).
+            $app['auth.records.profile']->saveProfileForm($account, $form);
 
             return new RedirectResponse($app['url_generator']->generate('authAdmin'));
         }

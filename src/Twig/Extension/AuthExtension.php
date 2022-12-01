@@ -9,11 +9,9 @@ use Twig_SimpleFunction as SimpleFunction;
  * Twig extension definition.
  *
  * Copyright (C) 2014-2016 Gawain Lynch
- * Copyright (C) 2017 Svante Richter
  *
  * @author    Gawain Lynch <gawain.lynch@gmail.com>
  * @copyright Copyright (c) 2014-2016, Gawain Lynch
- *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
 class AuthExtension extends Extension
@@ -34,6 +32,8 @@ class AuthExtension extends Extension
             new SimpleFunction('auth_has_role',              [AuthRuntime::class, 'hasRole'],         $safe),
             new SimpleFunction('auth_providers',             [AuthRuntime::class, 'getProviders'],    $safe),
             new SimpleFunction('auth_lastseen',              [AuthRuntime::class, 'getProvidersLastSeen'],    $safe),
+            new SimpleFunction('auth_feedback',              [AuthRuntime::class, 'getFeedback'],     $safe),
+            new SimpleFunction('auth_render_feedback',       [AuthRuntime::class, 'renderFeedback'],  $safe + $env),
             new SimpleFunction('auth_auth_switcher',         [AuthRuntime::class, 'renderSwitcher'],  $safe + $env),
             new SimpleFunction('auth_auth_associate',        [AuthRuntime::class, 'renderAssociate'], $safe + $env),
             new SimpleFunction('auth_auth_login',            [AuthRuntime::class, 'renderLogin'],     $safe + $env),
@@ -41,6 +41,7 @@ class AuthExtension extends Extension
             new SimpleFunction('auth_link_auth_login',       [AuthRuntime::class, 'getLinkLogin'],    $safe),
             new SimpleFunction('auth_link_auth_logout',      [AuthRuntime::class, 'getLinkLogout'],   $safe),
             new SimpleFunction('auth_link_auth_reset',       [AuthRuntime::class, 'getLinkReset'],    $safe),
+            new SimpleFunction('auth_link_profile_view',     [AuthRuntime::class, 'getLinkView'],     $safe),
             new SimpleFunction('auth_link_profile_edit',     [AuthRuntime::class, 'getLinkEdit'],     $safe),
             new SimpleFunction('auth_link_profile_register', [AuthRuntime::class, 'getLinkRegister'], $safe),
             new SimpleFunction('auth_profile_edit',          [AuthRuntime::class, 'renderEdit'],      $safe + $env),

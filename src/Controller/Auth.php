@@ -19,17 +19,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Bolt\Translation\Translator as Trans;
 
 /**
  * Auth controller.
  *
  * Copyright (C) 2014-2016 Gawain Lynch
- * Copyright (C) 2017 Svante Richter
  *
  * @author    Gawain Lynch <gawain.lynch@gmail.com>
  * @copyright Copyright (c) 2014-2016, Gawain Lynch
- *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
 class Auth extends AbstractController
@@ -132,7 +129,7 @@ class Auth extends AbstractController
         $authSession = $this->getAuthSession()->getAuthorisation();
         if ($authSession === null) {
             $app['session']->set(Authentication::FINAL_REDIRECT_KEY, $request->getUri());
-            $this->getAuthFeedback()->info('Login required to edit your profile');
+            $this->getAuthFeedback()->error('Login required to edit your profile');
 
             return new RedirectResponse($app['url_generator']->generate('authenticationLogin'));
         }
@@ -145,7 +142,6 @@ class Auth extends AbstractController
             $entity = $resolvedBuild->getEntity(Form\AuthForms::PROFILE_EDIT);
             $form = $resolvedBuild->getForm(Form\AuthForms::PROFILE_EDIT);
             $this->getAuthRecordsProfile()->saveProfileForm($entity, $form);
-            $this->getAuthFeedback()->info(Trans::__('Changed Profile Information successfully.'));
         }
 
         $template = $this->getAuthConfig()->getTemplate('profile', 'edit');
@@ -199,6 +195,11 @@ class Auth extends AbstractController
                     $guid = $this->getAuthSession()->getAuthorisation()->getGuid();
                     $this->getAuthRecords()->createProviderEntity($guid, $providerName, $resourceOwner->getId());
                     $session->removeAttribute(Session::SESSION_ATTRIBUTE_OAUTH_DATA);
+                }
+
+                // if redirect:register is set in extension configuration redirect there
+                if ($this->getAuthConfig()->getRedirectRegister() != null) {
+                    return new RedirectResponse($this->getAuthConfig()->getRedirectRegister());
                 }
 
                 // Redirect to our profile page.
@@ -261,6 +262,11 @@ class Auth extends AbstractController
             $app['dispatcher']->dispatch(AuthEvents::AUTH_PROFILE_VERIFY, $event);
             $session->set($sessionKey, $verification);
 
+            // if redirect:verify is set in extension configuration redirect there
+            if ($this->getAuthConfig()->getRedirectVerify() != null) {
+                return new RedirectResponse($this->getAuthConfig()->getRedirectVerify());
+            }
+
             return new RedirectResponse($app['url_generator']->generate('authProfileVerify'));
         }
 
@@ -315,7 +321,7 @@ class Auth extends AbstractController
             $authSession = $this->getAuthSession()->getAuthorisation();
             if ($authSession === null) {
                 $app['session']->set(Authentication::FINAL_REDIRECT_KEY, $request->getUri());
-                $this->getAuthFeedback()->info('Login required to view your profile');
+                $this->getAuthFeedback()->error('Login required to view your profile');
 
                 return new RedirectResponse($app['url_generator']->generate('authenticationLogin'));
             }
